@@ -79,7 +79,7 @@
             font-size: 34px; 
             font-weight: 800; 
             margin: 0; 
-            letter-spacing: -0.5px; 
+            letter-spacing: -0.5px;
         }
         .header p { 
             color: var(--text-sub); 
@@ -90,6 +90,16 @@
             font-size: 20px;
             font-weight: 700;
             margin: 16px 0 12px;
+        }
+        /* 功能说明标签 */
+        .func-tip {
+            font-size: 12px;
+            color: var(--apple-purple);
+            font-weight: 600;
+            margin: -10px 0 16px;
+            padding: 8px 12px;
+            background: rgba(175,82,222,0.08);
+            border-radius: 12px;
         }
 
         /* 3. 模块卡片 & 健康分析专用样式 */
@@ -347,6 +357,124 @@
             font-size: 12px;
             font-weight: 600;
         }
+
+        /* 6. 外观设置 & 软件功能选购样式 */
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #E5E5EA;
+        }
+        .setting-item:last-child { border-bottom: none; }
+        .setting-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+        .toggle-switch {
+            width: 51px;
+            height: 31px;
+            background: #E5E5EA;
+            border-radius: 16px;
+            position: relative;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .toggle-switch.active { background: var(--apple-green); }
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 27px;
+            height: 27px;
+            background: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .toggle-switch.active::after { left: 22px; }
+        .shop-card {
+            background: white;
+            border-radius: 24px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .shop-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .shop-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+        .shop-price {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--apple-blue);
+        }
+        .shop-desc {
+            font-size: 14px;
+            color: var(--text-sub);
+            line-height: 1.5;
+        }
+        .buy-btn {
+            background: var(--apple-blue);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 16px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .buy-btn:active { transform: scale(0.95); }
+        .buy-btn.owned {
+            background: #E5E5EA;
+            color: var(--text-sub);
+            cursor: default;
+        }
+
+        /* 7. 新增：产品硬件附件选购专用样式 */
+        .access-card {
+            background: linear-gradient(135deg, #f8fafc, #ffffff);
+            border: 1px solid #E2E8F0;
+            border-radius: 24px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .access-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 20px;
+            background: rgba(0,122,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 4px;
+        }
+        .access-tag {
+            display: inline-block;
+            padding: 4px 8px;
+            background: rgba(52, 199, 89, 0.1);
+            color: var(--apple-green);
+            font-size: 11px;
+            font-weight: 800;
+            border-radius: 6px;
+        }
     </style>
 </head>
 <body>
@@ -373,9 +501,40 @@
                     <span class="icon">👤</span><span>个人中心</span>
                 </div>
             </div>
+
+            <!-- 扩展功能区：外观设置 + 功能模块 + 产品附件 -->
+            <h2 class="section-title">⚙️ 扩展功能</h2>
+            <div class="metric-card" style="cursor: pointer; margin-bottom: 12px;" onclick="showPage('appearance')">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div class="metric-label" style="margin-bottom: 2px;">外观设置</div>
+                        <div class="metric-value" style="font-size: 16px;">调节产品硬件外观</div>
+                    </div>
+                    <span style="color: var(--apple-blue); font-size: 17px; font-weight: 600;">›</span>
+                </div>
+            </div>
+            <div class="metric-card" style="cursor: pointer; margin-bottom: 12px;" onclick="showPage('shop')">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div class="metric-label" style="margin-bottom: 2px;">软件功能选购</div>
+                        <div class="metric-value" style="font-size: 16px;">AI营养师 · 社区 · 运动</div>
+                    </div>
+                    <span style="color: var(--apple-blue); font-size: 17px; font-weight: 600;">›</span>
+                </div>
+            </div>
+            <!-- 新增：产品附件选购入口 -->
+            <div class="metric-card" style="cursor: pointer;" onclick="showPage('accessories')">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div class="metric-label" style="margin-bottom: 2px;">产品附件选购</div>
+                        <div class="metric-value" style="font-size: 16px;">硬件配件 · 拓展产品功能</div>
+                    </div>
+                    <span style="color: var(--apple-blue); font-size: 17px; font-weight: 600;">›</span>
+                </div>
+            </div>
         </div>
 
-        <!-- 健康分析 + 优化1：体重趋势添加日期 -->
+        <!-- 健康分析 -->
         <div id="health" class="page">
             <span class="back-btn" onclick="showPage('home')">首页</span>
             <div class="header"><h1>健康分析 🩺</h1></div>
@@ -397,7 +556,6 @@
                         <path d="M 0,70 C 50,65 70,80 110,60 S 180,30 220,55 S 270,20 300,15" fill="none" stroke="var(--apple-blue)" stroke-width="4" stroke-linecap="round" />
                         <circle cx="300" cy="15" r="4" fill="var(--apple-blue)" stroke="white" stroke-width="2.5" />
                     </svg>
-                    <!-- 新增：体重趋势日期标签 -->
                     <div class="chart-date-label">
                         <span>4.1</span><span>4.2</span><span>4.3</span><span>4.4</span><span>4.5</span><span>4.6</span><span>4.7</span>
                     </div>
@@ -458,7 +616,7 @@
             </div>
         </div>
 
-        <!-- 补给规划 + 优化2：丰富内容+新增支线模块 -->
+        <!-- 补给规划 -->
         <div id="plan" class="page">
             <span class="back-btn" onclick="showPage('home')">首页</span>
             <div class="header"><h1>补给规划 ✨</h1></div>
@@ -499,7 +657,6 @@
                 </div>
             </div>
 
-            <!-- 新增：补给规划支线模块 -->
             <h2 class="section-title">📌 支线辅助模块</h2>
             <div class="branch-card">
                 <div class="branch-title">⏰ 食材保质期提醒</div>
@@ -515,12 +672,11 @@
             </div>
         </div>
 
-        <!-- 个人中心 + 优化3：显示健康参数 + 优化4：健康变化统计 -->
+        <!-- 个人中心 -->
         <div id="me" class="page">
             <span class="back-btn" onclick="showPage('home')">首页</span>
             <div class="header"><h1>个人中心 👤</h1></div>
             
-            <!-- 优化3：个人中心显示具体健康参数 -->
             <h2 class="section-title">🩸 我的健康参数</h2>
             <div class="health-grid">
                 <div class="metric-card"><span class="metric-label">血压</span><span class="metric-value">118/76</span></div>
@@ -532,7 +688,6 @@
             </div>
 
             <h2 class="section-title">📈 数据统计（健康变化）</h2>
-            <!-- 优化4：健康变化统计 -->
             <div class="chart-box">
                 <div style="margin-bottom:16px;">
                     <div style="display:flex; justify-content:space-between;">
@@ -568,6 +723,140 @@
                     <span style="font-size:16px;">月度报告</span>
                 </div>
             </div>
+        </div>
+
+        <!-- 优化：外观设置（调节实体产品硬件外观） -->
+        <div id="appearance" class="page">
+            <span class="back-btn" onclick="showPage('home')">首页</span>
+            <div class="header"><h1>外观设置 🎨</h1></div>
+            <!-- 明确标注：调节实体产品硬件外观 -->
+            <p class="func-tip">💡 本设置用于调节【实体产品】硬件外观：灯光、屏幕、机身配色同步</p>
+            
+            <div class="metric-card" style="margin-top:20px;">
+                <div class="setting-item">
+                    <span class="setting-label">产品氛围灯</span>
+                    <div class="toggle-switch active" onclick="this.classList.toggle('active')"></div>
+                </div>
+                <div class="setting-item">
+                    <span class="setting-label">产品屏幕常亮</span>
+                    <div class="toggle-switch" onclick="this.classList.toggle('active')"></div>
+                </div>
+                <div class="setting-item">
+                    <span class="setting-label">大字体模式(产品屏幕)</span>
+                    <div class="toggle-switch" onclick="this.classList.toggle('active')"></div>
+                </div>
+            </div>
+
+            <h2 class="section-title">产品机身主题配色</h2>
+            <div class="module-grid" style="margin-top:0;">
+                <div class="module-card" style="background: var(--apple-blue); color: white; aspect-ratio: 2/1; height: 80px;">
+                    <span style="font-size:16px; font-weight:700;">默认蓝</span>
+                </div>
+                <div class="module-card" style="background: var(--apple-green); color: white; aspect-ratio: 2/1; height: 80px;">
+                    <span style="font-size:16px; font-weight:700;">清新绿</span>
+                </div>
+                <div class="module-card" style="background: var(--apple-purple); color: white; aspect-ratio: 2/1; height: 80px;">
+                    <span style="font-size:16px; font-weight:700;">梦幻紫</span>
+                </div>
+                <div class="module-card" style="background: var(--apple-orange); color: white; aspect-ratio: 2/1; height: 80px;">
+                    <span style="font-size:16px; font-weight:700;">活力橙</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 软件功能模块选购 -->
+        <div id="shop" class="page">
+            <span class="back-btn" onclick="showPage('home')">首页</span>
+            <div class="header"><h1>软件功能选购 🛒</h1></div>
+            
+            <div class="shop-card" style="margin-top:20px;">
+                <div class="shop-header">
+                    <span class="shop-title">🤖 AI营养师</span>
+                    <span class="shop-price">¥19.9/月</span>
+                </div>
+                <p class="shop-desc">1对1专属营养咨询，智能生成个性化食谱，实时解答饮食疑问，支持拍照识别食物热量。</p>
+                <div class="buy-btn" onclick="this.classList.toggle('owned'); this.innerText = this.classList.contains('owned') ? '已拥有' : '立即购买'">立即购买</div>
+            </div>
+
+            <div class="shop-card">
+                <div class="shop-header">
+                    <span class="shop-title">👥 社区分享</span>
+                    <span class="shop-price">¥9.9/月</span>
+                </div>
+                <p class="shop-desc">加入健康饮食社区，分享你的减脂餐和运动成果，与志同道合的伙伴交流经验，互相激励。</p>
+                <div class="buy-btn" onclick="this.classList.toggle('owned'); this.innerText = this.classList.contains('owned') ? '已拥有' : '立即购买'">立即购买</div>
+            </div>
+
+            <div class="shop-card">
+                <div class="shop-header">
+                    <span class="shop-title">🏃 运动追踪</span>
+                    <span class="shop-price">¥14.9/月</span>
+                </div>
+                <p class="shop-desc">同步手环/手表数据，记录每日步数、运动时长和消耗热量，智能推荐搭配饮食的运动方案。</p>
+                <div class="buy-btn owned">已拥有</div>
+            </div>
+
+            <div class="shop-card">
+                <div class="shop-header">
+                    <span class="shop-title">📊 深度健康报告</span>
+                    <span class="shop-price">¥29.9/月</span>
+                </div>
+                <p class="shop-desc">基于长期数据生成专业健康报告，分析身体变化趋势，提供科学的饮食和生活建议。</p>
+                <div class="buy-btn" onclick="this.classList.toggle('owned'); this.innerText = this.classList.contains('owned') ? '已拥有' : '立即购买'">立即购买</div>
+            </div>
+        </div>
+
+        <!-- 新增：产品硬件附件选购 -->
+       <!-- 新增：产品硬件附件选购 -->
+<div id="accessories" class="page">
+    <span class="back-btn" onclick="showPage('home')">首页</span>
+    <div class="header"><h1>产品附件选购 🎁</h1></div>
+    <p class="func-tip">💡 购买硬件配件，解锁实体产品更多拓展功能</p>
+    
+    <div class="access-card" style="margin-top:20px;">
+        <div class="access-icon">🚁</div>
+        <div class="shop-header">
+            <span class="shop-title">智能送餐无人机</span>
+            <span class="shop-price">¥299</span>
+        </div>
+        <span class="access-tag">硬件配件</span>
+        <p class="shop-desc">APP远程操控精准送餐，户外/办公全场景适配，自动避障+续航60分钟，拓展产品智能配送功能。</p>
+        <div class="buy-btn" onclick="this.classList.toggle('owned'); this.innerText = this.classList.contains('owned') ? '已购买' : '立即购买'">立即购买</div>
+    </div>
+
+    <div class="access-card">
+        <div class="access-icon">↕️</div>
+        <div class="shop-header">
+            <span class="shop-title">电动升降碗垫</span>
+            <span class="shop-price">¥69</span>
+        </div>
+        <span class="access-tag">硬件配件</span>
+        <p class="shop-desc">APP无级调节高度，适配坐姿/站姿用餐，防滑静音+恒温设计，提升用餐舒适度与产品实用性。</p>
+        <div class="buy-btn" onclick="this.classList.toggle('owned'); this.innerText = this.classList.contains('owned') ? '已购买' : '立即购买'">立即购买</div>
+    </div>
+
+    <div class="access-card">
+        <div class="access-icon">💡</div>
+        <div class="shop-header">
+            <span class="shop-title">RGB氛围灯组</span>
+            <span class="shop-price">¥59</span>
+        </div>
+        <span class="access-tag">硬件配件</span>
+        <p class="shop-desc">1600万色RGB灯光，APP自定义配色/呼吸模式，提升产品颜值，支持场景联动。</p>
+        <div class="buy-btn owned">已购买</div>
+    </div>
+
+    <div class="access-card">
+        <div class="access-icon">🔋</div>
+        <div class="shop-header">
+            <span class="shop-title">无线充电底座</span>
+            <span class="shop-price">¥79</span>
+        </div>
+        <span class="access-tag">硬件配件</span>
+        <p class="shop-desc">15W无线快充，防滑设计，充电同时稳固摆放产品，兼容所有无线充电协议。</p>
+        <div class="buy-btn" onclick="this.classList.toggle('owned'); this.innerText = this.classList.contains('owned') ? '已购买' : '立即购买'">立即购买</div>
+    </div>
+</div>
         </div>
     </div>
 
